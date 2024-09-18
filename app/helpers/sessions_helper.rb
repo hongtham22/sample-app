@@ -4,7 +4,7 @@ module SessionsHelper
     session[:user_id] = user.id
   end
 
-  #Remember a user in a persisten session
+  # Remember a user in a persisten session
   def remember(user)
     user.remember
     cookies.permanent.encrypted[:user_id] = user.id
@@ -17,19 +17,19 @@ module SessionsHelper
       @current_user ||= User.find_by(id: user_id)
     elsif (user_id = cookies.encrypted[:user_id])
       user = User.find_by(id: user_id)
-      if user && user.authenticated?(cookies[:remember_token])
-        log_in user
-        @current_user = user
-      end
+      return unless user&.authenticated?(cookies[:remember_token])
+
+      log_in user
+      @current_user = user
     end
   end
 
   # Returns true if the user is logged in, false otherwise
   def logged_in?
-    !current_user.nil?
+    current_user.present?
   end
 
-  #Forget a persistent session
+  # Forget a persistent session
   def forget(user)
     user.forget
     cookies.delete(:user_id)
