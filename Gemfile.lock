@@ -90,6 +90,8 @@ GEM
     date (3.3.4)
     erubi (1.13.0)
     execjs (2.9.1)
+    faker (3.4.2)
+      i18n (>= 1.8.11, < 2)
     ffi (1.17.0-x86_64-linux-gnu)
     formatador (1.1.0)
     globalid (1.2.1)
@@ -107,7 +109,7 @@ GEM
     guard-minitest (2.4.6)
       guard-compat (~> 1.2)
       minitest (>= 3.0)
-    i18n (1.14.5)
+    i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     jbuilder (2.12.0)
       actionview (>= 5.0.0)
@@ -314,6 +316,7 @@ DEPENDENCIES
   bootstrap-sass (= 3.4.1)
   byebug
   capybara (>= 3.26)
+  faker
   guard
   guard-minitest
   jbuilder (~> 2.7)
