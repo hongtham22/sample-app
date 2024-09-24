@@ -1,2 +1,10 @@
-<h1><%= @user.name %></h1>
-<p>Email: <%= @user.email %></p>
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<%= will_paginate %>
+
+<ul class="users">
+  <%= render @users%>
+</ul>
+
+<%= will_paginate %>
