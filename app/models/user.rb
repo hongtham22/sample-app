@@ -6,22 +6,22 @@ class User < ApplicationRecord
 
   before_create :create_activation_digest
 
-  validates :name, presence: true, length: { maximum: 50 }
+  validates :name, presence: true, length: {maximum: 50}
 
-  validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
+  validates :email, presence: true, length: {maximum: 255}, format: {with: VALID_EMAIL_REGEX}, uniqueness: true
 
   has_secure_password
-  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+  validates :password, presence: true, length: {minimum: 6}, allow_nil: true
 
-  #return the hash digest of the given string
-  #cost: computational level to calculate the hash
+  # return the hash digest of the given string
+  # cost: computational level to calculate the hash
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
-    BCrypt::Password.create(string, cost: cost)
+    BCrypt::Password.create(string, cost:)
   end
 
   # Return a random token
-  def User.new_token
+  def self.new_token
     SecureRandom.urlsafe_base64
   end
 
@@ -31,23 +31,22 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, User.digest(remember_token))
   end
 
-  #Returns true if the given token matches the digest
+  # Returns true if the given token matches the digest
   def authenticated?(attribute, token)
     digest = send("#{attribute}_digest")
     return false if digest.nil?
+
     BCrypt::Password.new(digest).is_password?(token)
   end
 
-  #Forget a user
+  # Forget a user
   def forget
     update_attribute(:remember_digest, nil)
   end
 
   # Activates an account.
   def activate
-    update_attribute(:activated,
-                     true)
-    update_attribute(:activated_at, Time.zone.now)
+    update(activated: true, activated_at: Time.zone.now)
   end
 
   # Sends activation email.
@@ -57,7 +56,7 @@ class User < ApplicationRecord
 
   private
 
-  #Convert email to all lower-case
+  # Convert email to all lower-case
   def downcase_email
     self.email = email.downcase
   end
