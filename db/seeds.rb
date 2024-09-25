@@ -20,7 +20,7 @@ User.create!(name: "Example User",
                activated_at: Time.zone.now)
 end
 
-#Generate microposts for a subset of users.
+# Generate microposts for a subset of users.
 users = User.order(:created_at).take(6)
 50.times do
   content = Faker::Lorem.sentence(word_count: 5)
