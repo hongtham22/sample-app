@@ -5,6 +5,8 @@ ruby '3.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.7', '>= 6.1.7.8'
+gem 'image_processing'
+gem 'mini_magick', '4.9.5'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
@@ -24,6 +26,7 @@ gem 'jbuilder', '~> 2.7'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
+gem 'active_storage_validations', '0.8.2'
 gem 'bcrypt', '3.1.13'
 gem 'faker'
 gem 'will_paginate', '~> 3.3.1'
