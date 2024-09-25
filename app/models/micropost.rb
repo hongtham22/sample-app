@@ -1,6 +1,10 @@
 class Micropost < ApplicationRecord
   belongs_to :user
   has_one_attached :image
+  scope :can_view, ->(user_id) {
+    following_ids = 'SELECT followed_id FROM relationships WHERE follower_id = :user_id'
+    where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id:)
+  }
   default_scope -> { order(created_at: :desc) }
   validates :user_id, presence: true
   validates :content, presence: true, length: {maximum: 140}
